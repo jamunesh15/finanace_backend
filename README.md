@@ -87,6 +87,34 @@ http://localhost:5000/api-docs
 
 ---
 
+## Deploy On Vercel
+
+This project is configured for Vercel serverless deployment using `vercel.json`.
+
+### 1. Push code to GitHub
+Make sure your repository is up to date.
+
+### 2. Import project in Vercel
+- Open Vercel dashboard
+- Click **Add New Project**
+- Import your GitHub repository
+
+### 3. Configure environment variables in Vercel
+Add these variables in Project Settings -> Environment Variables:
+- `MONGO_URI`
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `NODE_ENV=production`
+
+### 4. Deploy
+Vercel will automatically build and deploy.
+
+After deployment:
+- API base URL: `https://your-project-name.vercel.app`
+- Swagger docs: `https://your-project-name.vercel.app/api-docs`
+
+---
+
 ## Role Permissions
 
 | Action                        | Viewer | Analyst | Admin |
