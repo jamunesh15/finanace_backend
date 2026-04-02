@@ -34,6 +34,16 @@ app.use('/api/users', userRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
+// Root route for deployment checks
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Finance backend API is live.',
+    health: '/health',
+    docs: '/api-docs',
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.status(200).json({ success: true, message: 'Server is running.' });
