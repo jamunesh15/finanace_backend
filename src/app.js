@@ -26,7 +26,11 @@ app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 
 // API Docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', (req, res) => {
+  res.redirect(301, '/api-docs/');
+});
+app.get('/api-docs/', swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/auth', authRoutes);
