@@ -26,10 +26,7 @@ app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 
 // API Docs
-app.use('/api-docs', swaggerUi.serve);
-const swaggerHandler = swaggerUi.setup(swaggerSpec);
-app.get('/api-docs', swaggerHandler);
-app.get('/api-docs/', swaggerHandler);
+app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec), swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/auth', authRoutes);
