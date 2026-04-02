@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
+const swaggerUiDist = require('swagger-ui-dist');
 
 const connectDB = require('./config/db');
 const swaggerSpec = require('./config/swagger');
@@ -26,7 +27,11 @@ app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 
 // API Docs
-app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec), swaggerUi.setup(swaggerSpec));
+const swaggerUiAssetPath = swaggerUiDist.absolutePath();
+const swaggerDocsHandler = swaggerUi.setup(swaggerSpec);
+app.use('/api-docs', express.static(swaggerUiAssetPath));
+app.get('/api-docs', swaggerDocsHandler);
+app.get('/api-docs/', swaggerDocsHandler);
 
 // Routes
 app.use('/api/auth', authRoutes);
