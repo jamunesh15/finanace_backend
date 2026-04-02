@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -30,6 +31,15 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 const swaggerUiAssetPath = swaggerUiDist.absolutePath();
 const swaggerDocsHandler = swaggerUi.setup(swaggerSpec);
 app.use('/api-docs', express.static(swaggerUiAssetPath));
+app.get('/api-docs/swagger-ui.css', (req, res) => {
+  res.sendFile(path.join(swaggerUiAssetPath, 'swagger-ui.css'));
+});
+app.get('/api-docs/favicon-32x32.png', (req, res) => {
+  res.sendFile(path.join(swaggerUiAssetPath, 'favicon-32x32.png'));
+});
+app.get('/api-docs/favicon-16x16.png', (req, res) => {
+  res.sendFile(path.join(swaggerUiAssetPath, 'favicon-16x16.png'));
+});
 app.get('/api-docs', swaggerDocsHandler);
 app.get('/api-docs/', swaggerDocsHandler);
 
